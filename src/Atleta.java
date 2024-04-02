@@ -30,9 +30,13 @@ public class Atleta {
     }
 
 
-    public void adicionaMedalha(Medalha medalha) { medalhas.add(medalha); }
+    public void adicionaMedalha(Medalha medalha) { 
+        medalhas.add(medalha); 
+    }
 
-    public int consultaQuantidadeMedalhas() { return medalhas.size(); }
+    public int consultaQuantidadeMedalhas() { 
+        return medalhas.size();
+    }
 
     @Override
     public String toString() {

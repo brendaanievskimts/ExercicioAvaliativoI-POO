@@ -32,6 +32,8 @@ public class ACMESports {
         atletasPorTipoMedalha(); //8
         atletasPorModalidade(); //9
         atletaComMaisMedalhas(); //10
+        restauraES();
+        quadroGeralPais();
     }
 
     private void cadastrarAtleta() {
@@ -44,8 +46,9 @@ public class ACMESports {
             nome = entrada.nextLine();
             pais = entrada.nextLine();
             Atleta atleta = new Atleta(numero,nome,pais);
-            plantel.cadastraAtleta(atleta);
-            System.out.println("1:" + numero + "," + nome + "," + pais);
+            if(plantel.cadastraAtleta(atleta)){
+                System.out.println("1:" + numero + "," + nome + "," + pais);
+            } 
             numero = Integer.parseInt(entrada.nextLine());
         }
     }
@@ -123,12 +126,14 @@ public class ACMESports {
 
     private void atletaPorPais(){
         String pais = entrada.nextLine();
-        Atleta atleta = plantel.consultaAtletaPais(pais);
+        ArrayList<Atleta> atleta = plantel.consultaAtletaPais(pais);
 
-        if(atleta == null){
+        if(atleta.isEmpty()){
             System.out.println("7:Pais nao encontrado.");
         } else {
-            System.out.println("7:" + atleta.getNumero() + "," + atleta.getNome() + "," + atleta.getPais());
+            for (Atleta atleta2 : atleta) {
+                System.out.println("7:" + atleta2.getNumero() + "," + atleta2.getNome() + "," + atleta2.getPais());                
+            }
         }
 
     }
@@ -156,8 +161,12 @@ public class ACMESports {
             System.out.println("9:Modalidade não encontrada.");
         } else {
             for (Medalha medalha : medalhas) {
-                for (Atleta atleta : medalha.getAtletas()) {
-                    System.out.println("9:" + modalidade + "," + medalha.getTipo() + "," + atleta.getNumero() + "," + atleta.getNome() + "," + atleta.getPais());
+                if(medalha.getAtletas() == null || medalha.getAtletas().isEmpty()) {
+                    System.out.println("9:" + modalidade + "," + medalha.getTipo() + ",Sem atletas com medalha.");
+                } else {
+                    for (Atleta atleta : medalha.getAtletas()) {
+                        System.out.println("9:" + modalidade + "," + medalha.getTipo() + "," + atleta.getNumero() + "," + atleta.getNome() + "," + atleta.getPais());
+                    }
                 }
             }
         }
@@ -172,6 +181,15 @@ public class ACMESports {
             System.out.println("10:" + atleta.getNumero() + "," + atleta.getNome() + "," + atleta.getPais() + "," + plantel.tipos(atleta));
         }
     }
+
+    private void quadroGeralPais(){
+        System.out.println("DIGITE QUAL PAÍS VOCE QUER ACESSAR O QUADRO GERAL DE MEDALHAS");
+        String pais = entrada.nextLine();
+
+        System.out.println(plantel.porPais(pais));
+
+    }
+
 
     private void redirecionaES() {
         try {

@@ -38,15 +38,17 @@ public class Plantel {
         return null;
     }
 
-    public Atleta consultaAtletaPais(String pais) {
+    public ArrayList<Atleta> consultaAtletaPais(String pais) {
+        ArrayList<Atleta> array = new ArrayList<>();
+
         if(!atleta.isEmpty()) {
             for(int i = 0; i < atleta.size(); i++){
                 Atleta a = atleta.get(i);
                 if(a.getPais().equals(pais))
-                    return a;
+                    array.add(a);
             }
         }
-        return null;
+        return array;
     }
 
     public Atleta atletaComMaisMedalhas(){
@@ -54,32 +56,78 @@ public class Plantel {
 
         if(!atleta.isEmpty()) {
             for(Atleta a : atleta){
-                if(aMedalhas == null || a.consultaQuantidadeMedalhas() > aMedalhas.consultaQuantidadeMedalhas()){
+                if(aMedalhas == null || a.consultaQuantidadeMedalhas() >= aMedalhas.consultaQuantidadeMedalhas()){
                     aMedalhas = a;
                 }
             }
-            return aMedalhas;
         }
-        return null;
+        return aMedalhas;
     }
 
     public String tipos(Atleta atleta) {
         int ouro = 0;
         int prata = 0;
         int bronze = 0;
-
-        for (Medalha medalha: atleta.getMedalhas() ){
-            if(medalha.getTipo() == 1){
-                ouro++;
+        
+        if(atleta == null){     
+            return "Ouro:" + ouro + ",Prata:" + prata + ",Bronze:"+ bronze ;   
+        } else {
+            for (Medalha medalha: atleta.getMedalhas() ){
+                if(medalha != null ){
+                    if(medalha.getTipo() == 1){
+                        ouro++;
+                    }
+                    if(medalha.getTipo() == 2){
+                        prata++;
+                    }
+                    if (medalha.getTipo() == 3){
+                        bronze++;
+                    }
+                }
             }
-            if(medalha.getTipo() == 2){
-                prata++;
-            }
-            if (medalha.getTipo() == 3){
-                bronze++;
-            }
-
+            return "Ouro:" + ouro + ",Prata:"+ prata + ",Bronze:" + bronze ;
         }
-        return "Ouro:"+ouro + ",Prata:"+ prata + ",Bronze:"+ bronze ;
+    }
+
+    public String porPais(String pais) {
+        int ouro = 0;
+        int prata = 0;
+        int bronze = 0;
+        
+        for(Atleta at : atleta){
+            if(at.getPais().equals(pais)){
+                for (Medalha medalha: at.getMedalhas() ){
+                    if(medalha != null ){
+                        if(medalha.getTipo() == 1){
+                            ouro++;
+                        }
+                        if(medalha.getTipo() == 2){
+                            prata++;
+                        }
+                        if (medalha.getTipo() == 3){
+                            bronze++;
+                        }
+                    }
+                }    
+            }
+        }
+        return pais + ",Ouro:" + ouro + ",Prata:"+ prata + ",Bronze:" + bronze + ".";
+    }
+
+    public String quadroGeralM(String pais) {
+        int total = 0;
+        
+        for(Atleta at : atleta){
+            if(at.getPais().equals(pais)){
+                for (Medalha medalha: at.getMedalhas() ){
+                    if(medalha != null ){
+                        if(medalha.getTipo() != 21345465){
+                            total++;
+                        }
+                    }    
+                }
+            }
+        }
+        return pais + ",Total de medalhas:" + total;
     }
 }

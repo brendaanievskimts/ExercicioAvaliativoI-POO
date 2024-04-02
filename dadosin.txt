@@ -7,9 +7,6 @@ Brasil
 33
 Mario de Souza
 Brasil
-22
-Joseph Smith
-EUA
 44
 Madeleine Dubois
 Franca
@@ -35,10 +32,6 @@ Salto em altura
 3
 true
 Salto em altura
-222
-1
-true
-Basquetebol
 444
 1
 false
@@ -58,20 +51,16 @@ Futebol de campo
 22
 333
 55
-777
-11
 444
 22
 444
 33
 555
 66
-666
-99
 -1
-88
-Joseph Smith
-777
-Argentina
-9
-Basquetebol
+55
+Maria da Silva
+333
+Franca
+1
+Futebol de campo
